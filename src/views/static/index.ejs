@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ./partials/head.ejs %>
+
+  </head>
+
+  <body>
+      <% include ./partials/navbar.ejs %>
+    <main class="container">
+        <% include ../static/partials/messages.ejs %>
+        <section class="row text-center">
+        <header class="jumbotron my-5">
+            <h1 class="display-3">Welcome to Blocipedia</h1>
+            <p class="lead">Explore,Learn & Collaborate</p>
+              <a href="/users/signup" class="btn btn-primary btn-lg">Sign up</a>
+            <hr>
+          </header>
+        </section>
+          <section class="row text-center">
+            <section class="col-lg-4">
+              <h4 class="card-title">Access the Most interesting Wikis in the planet!</h4>
+              <p class="card-text">Share your knowledge and become a hero</p>
+            </section>
+          
+    
+            <section class="col-lg-4">
+              <h4 class="card-title">Edit and Request for Help</h4>
+              <p class="card-text"> Info at your fingertips</p>
+            </section>
+    
+            <section class="col-lg-4">
+              <h4 class="card-title">Join Premium</h4>
+              <p class="card-text">Upgrade your account</p>
+            </section>
+    
+          </section>
+        
+        </section>
+        </main>
+     <% include ./partials/baseScripts.ejs %>
+ <body>
+</html>
