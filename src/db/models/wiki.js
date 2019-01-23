@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Topic = sequelize.define('Topic', {
+  var Topic = sequelize.define('Wiki', {
     title: DataTypes.STRING
   }, {});
   Topic.associate = function(models) {
     // associations can be defined here
   };
-  return Topic;
+  return Wiki;
 };
