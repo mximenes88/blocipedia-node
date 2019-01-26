@@ -9,19 +9,23 @@ describe("routes : wikis", () => {
 	beforeEach((done) => {
 		this.wiki;
 		this.user;
-
+		  
 		sequelize.sync({force: true}).then((res) => {
 			User.create({
-				email: "morganax@bloc.com",
-				password: "17777777"
-			})
-			.then((user) => {
-				this.user = user;
+				  name:"Morgana",
+				  email: "user@bloc.com",
+				  password: "8888888",
+			      role: "standard"
+				})
+				.then((user) => {
+				  this.user = user;
+				});
 
 				Wiki.create({
 					title: "Baby Rhino",
 					body: "World's cutest animal",
-					userId: this.user.id
+					userId: user.id,
+					private: false
 				})
 				.then((wiki) => {
 					this.wiki = wiki;
@@ -31,7 +35,25 @@ describe("routes : wikis", () => {
 		});
 	});
 
-	describe("GET /wikis", () => {
+
+	// STANDARD USER CRUD ACTIONS
+	describe("standard user performing CRUD actions for Wiki", () => {
+
+			beforeEach((done) => {
+			  request.get({
+				url: "http://localhost:3000/auth/fake",
+				form: {
+				  role: "standard",
+				  email: "user@bloc.com"
+				}
+			  },
+				(err, res, body) => {
+				  done();
+				}
+			  );
+		});
+
+	  describe("GET /wikis", () => {
 		it("should return a status code 200 and a list of all the wikis", (done) => {
 			request.get(base, (err, res, body) => {
 				expect(res.statusCode).toBe(200);
@@ -60,7 +82,7 @@ describe("routes : wikis", () => {
 				form: {
 					title: "Snow Owls",
 					body: "The second cutest animals",
-					userId: this.user.id
+					userId: user.id
 				}
 			};
 		
@@ -128,7 +150,7 @@ describe("routes : wikis", () => {
 				form: {
 					title: "Baby Rhino",
 					body: "the not so cute animal",
-					userId: "this.user.id"
+					userId: user.id
 				}
 			}, (err, res, body) => {
 				expect(err).toBeNull();
@@ -142,4 +164,5 @@ describe("routes : wikis", () => {
 			});
 		});
 	});
+  });
 });

@@ -7,7 +7,7 @@ module.exports = {
          "name",
 
          {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
   
          }
        )

@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     name :{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
     role:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       defaultValue:0
     },
     password: {
