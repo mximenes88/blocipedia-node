@@ -11,17 +11,32 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: { msg: "must be a valid email" }
       }
     },
+    name :{
+      type: DataTypes.INTEGER,
+    },
+    role:{
+      type: DataTypes.INTEGER,
+      defaultValue:0
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false
     }
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
     User.hasMany(models.Wiki, {
 			foreignKey: 'userId',
 			as: 'wikis',
-		});
-  };
+    });
+  }
+    User.prototype.isStandard = function() {
+      return this.role === "standard";
+    };
+    User.prototype.isAdmin = function() {
+      return this.role === "admin";
+    };
+    User.prototype.isPremium = function() {
+      return this.role === "premium";
+    };
   return User;
-};
+}
