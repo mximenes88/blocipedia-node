@@ -12,7 +12,7 @@ module.exports = {
 			name:req.body.name,
 			email: req.body.email,
 			password: req.body.password,
-			confirmPassword: req.body.confirmPassword
+			passwordConfirmation: req.body.passwordConfirmation
 		};
 
 		userQueries.createUser(newUser, (err, user) => {
