@@ -1,33 +1,26 @@
+
 'use strict';
+const faker = require('faker');
 
-const faker = require("faker");
-
-let users = [{
-     id: 1,
-     name:"user1",
-     email: faker.internet.email(),
-     password: "password1",
-     createdAt: new Date(),
-     updatedAt: new Date(),
-     role: "standard"
-     },
-     {     
-     id: 2,
-     name:"user2",
-     email: faker.internet.email(),
-     password: "password2",
-     createdAt: new Date(),
-     updatedAt: new Date(),
-     role: "standard"
-     }
-];
+let users = [];
+for (let i = 1; i <= 25; i++) {
+	users.push({
+		email: faker.internet.email(),
+		password: faker.internet.password(),
+		role: faker.random.arrayElement(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	});
+}
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-       return queryInterface.bulkInsert("Users", users, {});
+		return queryInterface.bulkInsert('Users', users, {});
   },
 
   down: (queryInterface, Sequelize) => {
-       return queryInterface.bulkDelete("Users", null, {});
+		return queryInterface.bulkDelete('Users', users, {});
   }
 };
+
+  
