@@ -53,6 +53,7 @@ module.exports = {
 	   destroy(req, res, next){
         wikiQueries.deleteWiki(req.params.id, (err,wiki) =>{
             if(err){
+				console.log("ERROR:", err);
                 res.redirect( 500, `/wikis/${wiki.id}`)
             }else{
 				const authorized = new Authorizer (req.user,wiki).destroy();
@@ -68,6 +69,7 @@ module.exports = {
    	edit(req, res, next) {
       	wikiQueries.getWiki(req.params.id, (err, wiki) => {
          	if(err || wiki == null) {
+				console.log("ERROR:", err);
             	res.redirect(404, "/");
          	} else {
 				const authorized = new Authorizer(req.user,wiki).edit();
