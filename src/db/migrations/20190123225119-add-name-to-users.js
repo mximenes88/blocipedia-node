@@ -7,7 +7,7 @@ module.exports = {
          "name",
 
          {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
   
          }
        )

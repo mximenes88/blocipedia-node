@@ -7,7 +7,7 @@
    <%- include('../static/partials/navbar.ejs') -%>
     <main class="container">
   
-     <h1><%= wiki.title %></h1>
+     <h1 class="text-center"><%= wiki.title %></h1>
      <% if(currentUser) {%>
      <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
       <% } %>
@@ -16,7 +16,7 @@
        <button type="submit" class="btn btn-danger">Delete</button>
      </form>
      <% } %>
-     <p><%= wiki.body %></p>
+     <p class="text-center"><%= wiki.body %></p>
    </main>
    
    <%- include('../static/partials/baseScripts.ejs') -%>
