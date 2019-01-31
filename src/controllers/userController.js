@@ -13,27 +13,27 @@ module.exports = {
 			password: req.body.password,
 			passwordConfirmation: req.body.passwordConfirmation
 		};
-
 		userQueries.createUser(newUser, (err, user) => {
 			if(err){
 				req.flash("error", err);
 				res.redirect("/users/signup");
 			} else {
 				passport.authenticate("local")(req, res, () => {
-					req.flash("notice", "You have successfully signed in!");
+					req.flash("notice", "You've successfully signed in!");
 					sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 					const msg = {
-            			to: user.email,
-            			from: 'morgana@blocipedia.com',
-            			subject: 'Welcome to Blocipedia!',
-            			text: `Welcome to Blocipedia ${user.name}!`,
-            			html: `<strong>Welcome to Blocipedia ${user.name}!</strong>`,
-          			};
-          			sgMail.send(msg);
+						to: "morgana.ximenes@yahoo.ca",
+						from: 'nanaximenes8@hotmail.com',
+						subject: 'The new Wiki',
+						text: 'the way to collaborate',
+						html: '<strong>Welcome to Blocipedia!</strong>',
+					};
+				 sgMail.send(msg);
 					res.redirect("/");
 				})
 			}
 		});
+		console.log(process.env.SENDGRID_API_KEY);
 	},
 
   signInForm(req, res, next){
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   signIn(req, res, next){
-    passport.authenticate("local")(req, res, function(){
+    passport.authenticate('local')(req, res, () => {
       if(!req.user){
         req.flash("notice", "Sign in failed. Please try again.");
         res.redirect("/users/sign_in");
@@ -56,5 +56,49 @@ module.exports = {
     req.logout();
     req.flash("notice", "You've successfully signed out!");
     res.redirect("/");
-  }
+  },
+
+	upgradePage(req, res, next){
+		res.render("users/upgrade");
+	},
+
+ upgrade(req, res, next){
+	 const stripe = require("stripe")("sk_test_2tAMuq7WXNKR0Eitecy7Kng");
+	 const token = req.body.stripeToken;
+	 const charge = stripe.charges.create({
+		 amount: 1500,
+		 currency: "cad",
+		 description: "Upgrade",
+		 source: token,
+		 statement_descriptor: 'Blocipedia Upgrade',
+		 capture: false,
+	 });
+	 userQueries.upgrade(req.params.id, (err, user) => {
+		 if(err && err.type ==="StripeCardError"){
+			 req.flash("notice", "Your payment was unsuccessful");
+			 res.redirect("/users/upgrade");
+		 } else{
+			 req.flash("notice", "Your payment was successful, you are now a Premium Member!");
+			 res.redirect(`/`);
+
+		 }
+	 }) ;
+ },
+
+ downgradePage(req, res, next) {
+	 res.render("users/downgrade");
+ },
+
+ downgrade(req, res, next){
+	 userQueries.downgrade(req.params.id, (err, user) => {
+		 if(err){
+			 req.flash("notice", "There was an error processing this request");
+			 res.redirect("users/downgrade");
+		 } else{
+			 req.flash("notice", "Your account has been changed back to standard");
+			 res.redirect(`/`);
+		 }
+	 });
+ },
+
 }
