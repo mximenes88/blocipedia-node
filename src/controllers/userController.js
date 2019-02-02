@@ -22,7 +22,7 @@ module.exports = {
 					req.flash("notice", "You've successfully signed in!");
 					sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 					const msg = {
-						to: "morgana.ximenes@yahoo.ca",
+						to: user.email,
 						from: 'nanaximenes8@hotmail.com',
 						subject: 'The new Wiki',
 						text: 'the way to collaborate',
