@@ -9,6 +9,7 @@ const passportConfig = require('./passport-config');
 const logger = require('morgan');
 
 
+
 module.exports = {
 	init(app, express) {
 		app.set('views', viewsFolder);
