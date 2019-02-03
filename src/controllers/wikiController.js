@@ -63,20 +63,21 @@ module.exports = {
       	});
 	   },
 	
-	 destroy(req, res, next){
-			wikiQueries.deleteWiki(req.params.id, (err,wiki) =>{
-			    if(err){
-						res.redirect( 500, `/wikis/${wiki.id}`)
+	   destroy(req, res, next){
+        wikiQueries.deleteWiki(req.params.id, (err,wiki) =>{
+            if(err){
+				console.log("ERROR:", err);
+                res.redirect( 500, `/wikis/${wiki.id}`)
+            }else{
+				const authorized = new Authorizer (req.user,wiki).destroy();
+				if(authorized){
+				res.redirect(303,"/wikis")
 				}else{
-			    	const authorized = new Authorizer (req.user,wiki).destroy();
-			    	 if(authorized){
-						 res.redirect(303, "/wikis");
-					 } else{
 					req.flash("notice", "You are not authorized to perform that action");
-					}
 				}
-			 });
-		},
+            }
+        });
+    },
 
 
    	edit(req, res, next) {
