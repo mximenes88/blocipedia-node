@@ -8,6 +8,11 @@
 ## Description
  * Blocipedia is a robust application that allows users to write, edit and collaborate on different wikis. An user can easily upgrade to **"Premium"** to be able to access and work with private wikis. 
 
+## Features
+ * User Sign-up, Sign-in and Sign-off
+ * Two types of membership: Standard & Premium
+ * Public & Private Wikis 
+
 ## Built With
 
 * Node.js
@@ -16,4 +21,7 @@
 * EJS
 * Bootstrap
 * Payment Processing with Stripe
+
+
+## Check out the live version @ https://mximenes88--blocipedia-node.herokuapp.com/
 
