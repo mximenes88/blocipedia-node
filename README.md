@@ -1,6 +1,6 @@
-# Blocipedia 
-
- >The new way to WIKI
+# Blocipedia
+ 
+ #### **The new way to WIKI!!**
  
 <hr>
 
