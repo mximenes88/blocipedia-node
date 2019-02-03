@@ -33,15 +33,16 @@
         <a href="/users/signup" class="btn btn-primary btn-md">Sign up</a>
         </li>
       <% } %>
-
-
         <li class="nav-item">
           <a class="nav-link" href="/wikis">Public Wikis</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/private_wikis">Private Wikis</a>
-        </li>
+        <% if(currentUser && (currentUser.role == "premium" || currentUser.role == "admin")) { %>
+          <li class ="nav-item">
+           <a class="nav-link" href="/wikis/private">Private Wikis</a>
+         </li>
+         <% } %>
       </ul>
+
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>

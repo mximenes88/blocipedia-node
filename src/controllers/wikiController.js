@@ -12,6 +12,16 @@ module.exports = {
 			}
 		})
 	},
+	privateIndex(req, res, next) {
+		wikiQueries.getAllWikis((err, wikis) => {
+			if (err) {
+				console.log('wikiController privateIndex error: ' + err);
+				res.redirect(500, 'static/index');
+			} else {
+				res.render('wikis/private', { wikis });
+			}
+		});
+	},
 	new(req, res, next){
 		const authorized = new Authorizer (req.user).new();
 		if(authorized){
@@ -33,7 +43,7 @@ module.exports = {
 			  };
 			  wikiQueries.addWiki(newWiki, (err, wiki) => {
 				if(err){
-					res.redirect(500, "/wikis/new");
+					res.redirect(500, "/wikis");
 				} else {
 					res.redirect(303, `/wikis/${wiki.id}`);
 				}
@@ -53,26 +63,26 @@ module.exports = {
       	});
 	   },
 	
-	   destroy(req, res, next){
-        wikiQueries.deleteWiki(req.params.id, (err,wiki) =>{
-            if(err){
-				console.log("ERROR:", err);
-                res.redirect( 500, `/wikis/${wiki.id}`)
-            }else{
-				const authorized = new Authorizer (req.user,wiki).destroy();
-				if(authorized){
-				res.redirect(303,"/wikis")
+	 destroy(req, res, next){
+			wikiQueries.deleteWiki(req.params.id, (err,wiki) =>{
+			    if(err){
+						res.redirect( 500, `/wikis/${wiki.id}`)
 				}else{
+			    	const authorized = new Authorizer (req.user,wiki).destroy();
+			    	 if(authorized){
+						 res.redirect(303, "/wikis");
+					 } else{
 					req.flash("notice", "You are not authorized to perform that action");
+					}
 				}
-            }
-        });
-    },
+			 });
+		},
+
 
    	edit(req, res, next) {
       	wikiQueries.getWiki(req.params.id, (err, wiki) => {
          	if(err || wiki == null) {
-            	res.redirect(404, "/");
+            	res.redirect(404, "/wikis");
          	} else {
 				const authorized = new Authorizer(req.user,wiki).edit();
 				if (authorized) {

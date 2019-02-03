@@ -1,6 +1,9 @@
 const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
 const sgMail = require('@sendgrid/mail');
+const wikiQueries = require("../db/queries.wikis.js");
+const User = require("../db/models/").User;
+const Wiki = require("../db/models/").Wiki;
 
 module.exports = {
   signUp(req, res, next){
@@ -89,16 +92,11 @@ module.exports = {
 	 res.render("users/downgrade");
  },
 
- downgrade(req, res, next){
-	 userQueries.downgrade(req.params.id, (err, user) => {
-		 if(err){
-			 req.flash("notice", "There was an error processing this request");
-			 res.redirect("users/downgrade");
-		 } else{
-			 req.flash("notice", "Your account has been changed back to standard");
-			 res.redirect(`/`);
-		 }
-	 });
- },
+ 	downgrade(req, res, next) {
+	userQueries.downgrade(req.user.dataValues.id);
+	wikiQueries.privateToPublic(req.user.dataValues.id);
+	req.flash('notice', 'You are no longer a premium user and your private wikis are now public.');
+	res.redirect('/');
+},
 
 }

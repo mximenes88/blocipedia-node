@@ -7,7 +7,7 @@ for (let i = 1; i <= 25; i++) {
 	users.push({
 		email: faker.internet.email(),
 		password: faker.internet.password(),
-		role: faker.random.arrayElement(),
+		role: "standard",
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	});
