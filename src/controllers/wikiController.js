@@ -64,6 +64,7 @@ module.exports = {
 				res.redirect(303,"/wikis")
 				}else{
 					req.flash("notice", "You are not authorized to perform that action");
+					res.redirect(303, "/wikis");
 				}
             }
         });
