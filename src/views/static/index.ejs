@@ -11,7 +11,7 @@
         <% include ../static/partials/messages.ejs %>
         
         <div class="jumbotron jumbotron-fluid my-5">
-          <div class="container"></div>
+          <div class="container">
             <h1 class="display-3 text-center">Welcome to Blocipedia</h1>
             <p class="lead text-center">Explore,Learn & Collaborate</p>
             <div class="text-center"> <a href="/users/signup" class="btn btn-primary btn-md">Sign up</a></div>
@@ -19,24 +19,27 @@
             </div>
         </div>
        
+         <div class= "container">
           <section class="row text-center">
             <section class="col-lg-4">
-              <h4 class="card-title">Access the Most interesting Wikis in the planet!</h4>
-              <p class="card-text">Share your knowledge and become a hero</p>
-            </section>
-          
-    
-            <section class="col-lg-4">
-              <h4 class="card-title">Edit and Request for Help</h4>
+              <h4 class="card-title">Collaborate!</h4>
               <p class="card-text"> Info at your fingertips</p>
-            </section>
+              <% if(currentUser) { %>
+                <a href="/users/<%= currentUser.id %>/collaborations" class="btn btn-primary btn-sm">See Collaborations</a>
+                <% } %>
+                </section>
 
             <section class="col-lg-4">
-                <h4 class="card-title"> Go premium and enjoy anytime upgrades & downgrades</h4>
+                <h4 class="card-title"> Enjoy the VIP treatment!</h4>
                 <p class="card-text"> Low investment</p>
+
+                <% if(currentUser && currentUser.role == "standard") { %>
+                  <a href="/users/<%= currentUser.id %>/upgrade" class="btn btn-primary btn-sm">Upgrade to Premium</a>
+                  <% } %>
               </section>
 
           </section>
+         </div>
 
         </main>
     </body>

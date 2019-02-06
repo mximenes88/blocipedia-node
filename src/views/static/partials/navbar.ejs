@@ -12,6 +12,10 @@
           <li class="nav-item">
             <a class="btn btn-primary btn-md"  href="/users/signout">Sign out</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/<%= currentUser.id %>/collaborations">Collaborations</a>
+        </li>
+          </li>
         <% } else { %>
           <li class="nav-item">
             <a class="btn btn-primary btn-md" href="/users/signin">Sign in</a>
@@ -24,6 +28,7 @@
              </li>
           <% } %>
           <% if(currentUser.role == "premium") { %>
+           
             <li class="nav-item">
               <a class= "nav-link" href= "/users/<%=currentUser.id%>/downgrade" class="btn btn-primary btn-lg">Downgrade Account</a>
             </li>

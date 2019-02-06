@@ -17,6 +17,11 @@
          <textarea rows="4" class="form-control" name="body" placeholder="Enter Description"><%= wiki.body %></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
+        <% if ((wiki.private == true) && currentUser && (currentUser.role === 'admin' || (currentUser.role === 'premium' && currentUser.id === wiki.userId))){%>
+          <form action="/wikis/<%= wiki.id %>/collaborators" method="post">
+          <a href='/wikis/<%= wiki.id %>/collaborators' class="btn btn-info">Edit Collaborators</a>
+          </form>
+       <% }%>
       </form>
     </main>
      <%- include('../static/partials/baseScripts.ejs') -%>

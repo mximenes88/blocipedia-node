@@ -5,6 +5,7 @@ const wikiQueries = require("../db/queries.wikis.js");
 const User = require("../db/models/").User;
 const Wiki = require("../db/models/").Wiki;
 
+
 module.exports = {
   signUp(req, res, next){
     res.render("users/signup");
@@ -14,7 +15,9 @@ module.exports = {
 		let newUser = {
 			email: req.body.email,
 			password: req.body.password,
+			name:req.body.name,
 			passwordConfirmation: req.body.passwordConfirmation
+
 		};
 		userQueries.createUser(newUser, (err, user) => {
 			if(err){
@@ -98,5 +101,15 @@ module.exports = {
 	req.flash('notice', 'You are no longer a premium user and your private wikis are now public.');
 	res.redirect('/');
 },
-
+	showCollaborations(req, res, next) {
+		userQueries.getUser(req.user.id, (err, result) => {
+			user = result['user'];
+			collaborations = result['collaborations'];
+			if (err || user == null) {
+				res.redirect(404, '/');
+			} else {
+				res.render('users/collaborations', { user, collaborations });
+			}
+		});
+	},
 }
