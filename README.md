@@ -1,6 +1,4 @@
-# Blocipedia
- 
- #### **The new way to WIKI!!**
+# Blocipedia :rocket:
  
 <hr>
 
